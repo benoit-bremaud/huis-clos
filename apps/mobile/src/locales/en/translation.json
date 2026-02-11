@@ -44,5 +44,24 @@
   "errors": {
     "network": "Network error. Please check your connection.",
     "unknown": "An unexpected error occurred"
+  },
+  "profile": {
+    "title": "My Profile",
+    "edit": "Edit",
+    "editTitle": "Edit Profile",
+    "username": "Username",
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us about yourself...",
+    "avatarUrl": "Avatar URL",
+    "avatarUrlPlaceholder": "https://...",
+    "preferredLanguage": "Preferred Language",
+    "save": "Save",
+    "cancel": "Cancel",
+    "success": "Profile updated successfully",
+    "error": "Error loading profile",
+    "errorLoading": "Could not load profile",
+    "errorSaving": "Could not save changes",
+    "about": "About",
+    "noBio": "No bio"
   }
 }
