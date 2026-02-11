@@ -1,0 +1,38 @@
+{
+  "name": "velia-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "dev:android": "expo start --android",
+    "dev:ios": "expo start --ios",
+    "build": "expo export",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "prepare": "expo-module-scripts postinstall"
+  },
+  "dependencies": {
+    "expo": "^51.0.0",
+    "expo-router": "^3.5.0",
+    "react": "^18.2.0",
+    "react-native": "^0.74.0",
+    "react-native-screens": "^3.31.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/native-stack": "^6.9.0",
+    "i18next": "^23.10.0",
+    "react-i18next": "^14.0.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.73.0",
+    "expo-module-scripts": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}

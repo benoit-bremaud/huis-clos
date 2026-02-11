@@ -1,0 +1,48 @@
+{
+  "app": {
+    "title": "Velia",
+    "welcome": "Welcome to Velia"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "register": "Register"
+    },
+    "register": {
+      "title": "Create Account",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "alreadyHaveAccount": "Already have an account?"
+    },
+    "logout": "Logout",
+    "errors": {
+      "invalidEmail": "Please enter a valid email",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required",
+      "invalidCredentials": "Invalid email or password"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "errors": {
+    "network": "Network error. Please check your connection.",
+    "unknown": "An unexpected error occurred"
+  }
+}
