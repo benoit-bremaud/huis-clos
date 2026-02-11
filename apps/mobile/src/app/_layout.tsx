@@ -1,14 +1,30 @@
+import { AuthProvider } from '../../context/AuthContext';
+import { I18nextProvider } from '../../services/i18n';
 import { Stack } from 'expo-router';
-import { useTranslation } from 'react-i18next';
 
 export default function Layout() {
-  const { t } = useTranslation();
-
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false
-      }}
-    />
+    <I18nextProvider>
+      <AuthProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen
+            name="auth/login"
+            options={{
+              title: 'Login'
+            }}
+          />
+          <Stack.Screen
+            name="auth/register"
+            options={{
+              title: 'Register'
+            }}
+          />
+        </Stack>
+      </AuthProvider>
+    </I18nextProvider>
   );
 }
