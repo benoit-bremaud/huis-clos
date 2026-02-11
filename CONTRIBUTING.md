@@ -322,6 +322,46 @@ docs/
 
 ---
 
+## Architecture Checklist
+
+**Critical**: All code must follow Clean Architecture principles. See [docs/architecture/clean-solid.md](./docs/architecture/clean-solid.md).
+
+### Layer Compliance
+
+#### Domain Layer (inner circle)
+- [ ] Contains pure business logic only
+- [ ] No framework imports (NestJS, Express, React, etc.)
+- [ ] No infrastructure code (DB, HTTP, file system)
+- [ ] Defines interfaces/ports only
+
+#### Application Layer (use cases)
+- [ ] Orchestrates domain logic
+- [ ] Depends only on domain layer
+- [ ] Contains use case classes/functions
+- [ ] No presentation or infrastructure concerns
+
+#### Infrastructure Layer (outer circle)
+- [ ] Implements interfaces from domain/application
+- [ ] Contains framework code
+- [ ] Handles persistence, HTTP, external services
+
+#### Presentation Layer (outer circle)
+- [ ] Handles user input/output
+- [ ] Calls application layer
+- [ ] No business logic
+
+### Dependency Rule
+- [ ] No imports from infrastructure to inner layers
+- [ ] No imports from presentation to inner layers
+- [ ] Imports flow inward only
+- [ ] Dependencies injected via constructor
+
+### SOLID Principles
+- [ ] **Single Responsibility**: Each class has one reason to change
+- [ ] **Open/Closed**: Open for extension, closed for modification
+- [ ] **Interface Segregation**: Small, focused interfaces
+- [ ] **Dependency Inversion**: Depend on abstractions, not concretions
+
 ## Questions?
 
 If you have questions, please open an issue for discussion.
