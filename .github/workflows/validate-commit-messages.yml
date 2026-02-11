@@ -25,6 +25,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
       
       - name: Validate each commit message
+        shell: bash
         run: |
           echo "Validating commit messages..."
           echo ""
