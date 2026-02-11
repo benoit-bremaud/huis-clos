@@ -48,6 +48,10 @@ class ProfileApi {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
+        // Skip refresh logic for refresh endpoint to avoid infinite loop
+        if (originalRequest.url?.includes('/auth/refresh')) {
+          return Promise.reject(error);
+        }
         if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
           try {
