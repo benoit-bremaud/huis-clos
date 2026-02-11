@@ -13,8 +13,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "prepare": "expo-module-scripts postinstall"
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "expo": "^51.0.0",
