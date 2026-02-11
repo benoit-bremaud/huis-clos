@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Pre-push hook to validate branch name before pushing
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+echo "Pushing branch: $BRANCH_NAME"
+
+# Check if branch name matches pattern: type/issueId-description
+if [[ ! "$BRANCH_NAME" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|hotfix)/[0-9]+-.+ ]]; then
+  echo ""
+  echo "❌ Invalid branch name: $BRANCH_NAME"
+  echo ""
+  echo "Expected format: type/issueId-description"
+  echo "Examples:"
+  echo "  - feat/42-add-jwt-refresh-flow"
+  echo "  - fix/108-fix-login-crash"
+  echo "  - docs/15-update-api-docs"
+  echo ""
+  echo "Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, hotfix"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Branch name is valid"

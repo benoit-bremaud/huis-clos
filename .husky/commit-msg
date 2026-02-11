@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Commit-msg hook to validate commit message format
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Check if commit message matches conventional commit format
+if [[ ! "$COMMIT_MSG" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|hotfix)(\([a-z0-9-]+\))?: .+ ]]; then
+  echo ""
+  echo "❌ Invalid commit message: $COMMIT_MSG"
+  echo ""
+  echo "Expected format: type(scope): subject"
+  echo "Examples:"
+  echo "  - feat(auth): add login feature"
+  echo "  - fix(profile): resolve avatar upload error"
+  echo "  - docs(contributing): add branching policy"
+  echo ""
+  echo "Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, hotfix"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Commit message is valid"

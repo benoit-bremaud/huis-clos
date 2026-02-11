@@ -1,0 +1,11 @@
+# Code Owners for Velia
+
+# Default reviewer for all PRs
+* @benoit-bremaud
+
+# Additional reviewers by area
+# apps/mobile/** @benoit-bremaud
+# apps/backend/** @benoit-bremaud
+# packages/shared/** @benoit-bremaud
+# docs/** @benoit-bremaud
+# .github/** @benoit-bremaud

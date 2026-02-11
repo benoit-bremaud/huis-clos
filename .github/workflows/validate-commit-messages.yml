@@ -1,0 +1,56 @@
+name: Validate Commit Messages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  validate-commits:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Get PR commits
+        id: commits
+        run: |
+          COMMITS=$(git log --oneline ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Validate each commit message
+        run: |
+          echo "Validating commit messages..."
+          echo ""
+          echo "${{ steps.commits.outputs.commits }}"
+          echo ""
+          
+          INVALID_COMMITS=$(echo "${{ steps.commits.outputs.commits }}" | grep -E "^[^a-f0-9]*($|conventional)" || true)
+          
+          while IFS= read -r commit; do
+            if [ -n "$commit" ]; then
+              MSG=$(echo "$commit" | sed 's/^[a-f0-9]* //')
+              
+              # Check if matches conventional commit format
+              if [[ ! "$MSG" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .+ ]]; then
+                echo "❌ Invalid commit message: $MSG"
+                echo "   Expected format: type(scope): subject"
+                echo "   Examples:"
+                echo "     - feat(auth): add login feature"
+                echo "     - fix(profile): resolve avatar upload error"
+                echo "   Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+                exit 1
+              fi
+              
+              echo "✅ $MSG"
+            fi
+          done <<< "${{ steps.commits.outputs.commits }}"
+          
+          echo ""
+          echo "✅ All commit messages are valid"

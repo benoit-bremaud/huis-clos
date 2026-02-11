@@ -1,0 +1,36 @@
+name: Validate Branch Name
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  validate-branch-name:
+    name: Validate Branch Name
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Validate branch name
+        run: |
+          BRANCH_NAME=${{ github.head_ref || github.ref_name }}
+          echo "Branch name: $BRANCH_NAME"
+          
+          # Check if branch name matches pattern: type/issueId-description
+          if [[ ! "$BRANCH_NAME" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|hotfix)/[0-9]+-.+ ]]; then
+            echo "❌ Invalid branch name format"
+            echo ""
+            echo "Expected format: type/issueId-description"
+            echo "Examples:"
+            echo "  - feat/42-add-jwt-refresh-flow"
+            echo "  - fix/108-fix-login-crash"
+            echo "  - docs/15-update-api-docs"
+            echo ""
+            echo "Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, hotfix"
+            exit 1
+          fi
+          
+          echo "✅ Branch name is valid"
