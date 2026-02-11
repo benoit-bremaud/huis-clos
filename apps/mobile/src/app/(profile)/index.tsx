@@ -14,6 +14,7 @@ export default function ProfileScreen() {
 
   const loadProfile = useCallback(async () => {
     try {
+      setError(null);
       setLoading(true);
       const data = await profileApi.getProfile('me');
       setProfile(data);
@@ -65,7 +66,7 @@ export default function ProfileScreen() {
 
       <View style={styles.infoSection}>
         <Text style={styles.sectionTitle}>{t('profile.preferredLanguage')}</Text>
-        <Text style={styles.language}>{profile?.preferredLanguage || 'English'}</Text>
+        <Text style={styles.language}>{profile?.preferredLanguage || t('common.defaultLanguage')}</Text>
       </View>
 
       <TouchableOpacity

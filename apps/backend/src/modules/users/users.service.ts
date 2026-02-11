@@ -7,6 +7,7 @@ export interface UserEntity {
   password: string;
   avatarUrl?: string;
   bio?: string;
+  preferredLanguage?: string;
   createdAt: Date;
   updatedAt: Date;
 }

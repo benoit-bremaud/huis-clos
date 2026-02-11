@@ -21,6 +21,7 @@ export default function EditProfileScreen() {
   const [username, setUsername] = useState('');
   const [bio, setBio] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [preferredLanguage, setPreferredLanguage] = useState('');
 
   const loadProfile = useCallback(async () => {
     try {
@@ -29,10 +30,11 @@ export default function EditProfileScreen() {
       setUsername(data.username || '');
       setBio(data.bio || '');
       setAvatarUrl(data.avatarUrl || '');
+      setPreferredLanguage(data.preferredLanguage || '');
     } catch {
-      Alert.alert(t('profile.error'), t('profile.errorLoading'));
-    } finally {
-      setLoading(false);
+      Alert.alert(t('profile.error'), t('profile.errorSaving'), [
+        { text: t('common.ok') },
+      ]);
     }
   }, [t]);
 
@@ -49,13 +51,16 @@ export default function EditProfileScreen() {
         username,
         bio,
         avatarUrl: avatarUrl || undefined,
+        preferredLanguage: preferredLanguage || undefined,
       };
       await profileApi.updateProfile('me', data);
       Alert.alert(t('profile.success'), '', [
-        { text: 'OK', onPress: () => router.back() },
+        { text: t('common.ok'), onPress: () => router.back() },
       ]);
     } catch {
-      Alert.alert(t('profile.error'), t('profile.errorSaving'));
+      Alert.alert(t('profile.error'), t('profile.errorSaving'), [
+        { text: t('common.ok') },
+      ]);
     } finally {
       setSaving(false);
     }
@@ -101,6 +106,16 @@ export default function EditProfileScreen() {
           onChangeText={setAvatarUrl}
           placeholder={t('profile.avatarUrlPlaceholder')}
           autoCapitalize="none"
+        />
+      </View>
+
+      <View style={styles.field}>
+        <Text style={styles.label}>{t('profile.preferredLanguage')}</Text>
+        <TextInput
+          style={styles.input}
+          value={preferredLanguage}
+          onChangeText={setPreferredLanguage}
+          placeholder="fr, en, es..."
         />
       </View>
 

@@ -10,8 +10,8 @@ export interface ProfileResponse {
   avatarUrl?: string;
   bio?: string;
   preferredLanguage?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 @Injectable()
@@ -19,7 +19,8 @@ export class ProfileService {
   constructor(private readonly usersService: UsersService) {}
 
   async getProfile(userId: string): Promise<ProfileResponse> {
-    const user = await this.usersService.findById(userId);
+    const actualUserId = userId === 'me' ? undefined : userId;
+    const user = await this.usersService.findById(actualUserId || '');
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -30,9 +31,9 @@ export class ProfileService {
       username: user.username,
       avatarUrl: user.avatarUrl,
       bio: user.bio,
-      preferredLanguage: (user as any).preferredLanguage,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      preferredLanguage: user.preferredLanguage,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
     };
   }
 
@@ -44,6 +45,7 @@ export class ProfileService {
       username: updateProfileDto.username,
       avatarUrl: updateProfileDto.avatarUrl,
       bio: updateProfileDto.bio,
+      preferredLanguage: updateProfileDto.preferredLanguage,
     });
 
     return {
@@ -52,9 +54,9 @@ export class ProfileService {
       username: user.username,
       avatarUrl: user.avatarUrl,
       bio: user.bio,
-      preferredLanguage: (user as any).preferredLanguage,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      preferredLanguage: user.preferredLanguage,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
     };
   }
 }

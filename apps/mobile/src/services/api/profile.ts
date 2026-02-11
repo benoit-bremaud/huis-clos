@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
 
 export interface ProfileResponse {
   id: string;
@@ -11,8 +11,8 @@ export interface ProfileResponse {
   avatarUrl?: string;
   bio?: string;
   preferredLanguage?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface UpdateProfileData {
@@ -85,7 +85,7 @@ class ProfileApi {
   }
 
   async refresh(refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> {
-    const response = await this.client.post('/auth/refresh', { refreshToken });
+    const response = await this.client.post('/auth/refresh', { refreshToken, tokenType: 'refresh' });
     return response.data;
   }
 

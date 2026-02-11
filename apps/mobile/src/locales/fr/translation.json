@@ -39,7 +39,9 @@
     "save": "Enregistrer",
     "delete": "Supprimer",
     "edit": "Modifier",
-    "close": "Fermer"
+    "close": "Fermer",
+    "ok": "OK",
+    "defaultLanguage": "Anglais"
   },
   "errors": {
     "network": "Erreur réseau. Veuillez vérifier votre connexion.",
