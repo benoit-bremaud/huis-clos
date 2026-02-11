@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "@velia/shared": ["../../packages/shared/src"]
-    }
+    },
+    "types": ["node"]
   },
   "include": ["src", "**/*.ts", "**/*.tsx", "app.config.ts"]
 }
