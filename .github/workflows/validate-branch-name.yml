@@ -9,19 +9,20 @@ jobs:
     name: Validate Branch Name
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Validate branch name
-        shell: bash
         run: |
           BRANCH_NAME=${{ github.head_ref || github.ref_name }}
           echo "Branch name: $BRANCH_NAME"
-          
-          # Check if branch name matches pattern: type/issueId-description
-          if [[ ! "$BRANCH_NAME" =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|hotfix)/[0-9]+-.+ ]]; then
+
+          # Check if branch name matches pattern using grep -E (POSIX compatible)
+          if echo "$BRANCH_NAME" | grep -E '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|hotfix)/[0-9]+-.+' > /dev/null; then
+            echo "✅ Branch name is valid"
+          else
             echo "❌ Invalid branch name format"
             echo ""
             echo "Expected format: type/issueId-description"
@@ -33,5 +34,3 @@ jobs:
             echo "Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, hotfix"
             exit 1
           fi
-          
-          echo "✅ Branch name is valid"
