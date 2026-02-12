@@ -1,7 +1,7 @@
-import { AuthTokens, User } from '@velia/shared';
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
-import { authApi } from '../services/api/auth';
+import { User } from '@velia/shared';
+import { useAuthHook } from '../features/auth/application/hooks/use-auth.hook';
 
 interface AuthContextType {
   user: User | null;
@@ -17,32 +17,26 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { loadCurrentUser, login: loginAction, register: registerAction, logout: logoutAction, refreshToken: refreshTokenAction } = useAuthHook();
 
-  // Load tokens and user on mount
   useEffect(() => {
     async function loadAuthData() {
       try {
-        const tokens = await authApi.getStoredTokens();
-        if (tokens) {
-          const userData = await authApi.getMe();
-          setUser(userData);
-        }
-      } catch {
-        await authApi.clearTokens();
+        const userData = await loadCurrentUser();
+        setUser(userData);
       } finally {
         setIsLoading(false);
       }
     }
 
     loadAuthData();
-  }, []);
+  }, [loadCurrentUser]);
 
   async function login(email: string, password: string): Promise<void> {
     setIsLoading(true);
     try {
-      const response = await authApi.login({ email, password });
-      await authApi.storeTokens(response.tokens);
-      setUser(response.user);
+      const result = await loginAction({ email, password });
+      setUser(result.user);
     } finally {
       setIsLoading(false);
     }
@@ -51,29 +45,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function register(email: string, password: string, username: string): Promise<void> {
     setIsLoading(true);
     try {
-      const response = await authApi.register({ email, password, username });
-      await authApi.storeTokens(response.tokens);
-      setUser(response.user);
+      const result = await registerAction({ email, password, username });
+      setUser(result.user);
     } finally {
       setIsLoading(false);
     }
   }
 
   async function logout(): Promise<void> {
-    try {
-      await authApi.logout();
-    } finally {
-      await authApi.clearTokens();
-      setUser(null);
-    }
+    await logoutAction();
+    setUser(null);
   }
 
   async function refreshToken(): Promise<void> {
-    const tokens = await authApi.getStoredTokens();
-    if (tokens?.refreshToken) {
-      const newTokens = await authApi.refresh(tokens.refreshToken);
-      await authApi.storeTokens(newTokens);
-    }
+    await refreshTokenAction();
   }
 
   return (
