@@ -12,6 +12,37 @@ const refreshClient = axios.create({
   },
 });
 
+let refreshTokensPromise: Promise<AuthTokens | null> | null = null;
+
+async function getSingleFlightRefreshedTokens(): Promise<AuthTokens | null> {
+  if (!refreshTokensPromise) {
+    refreshTokensPromise = (async () => {
+      const tokens = await tokenStorage.getTokens();
+      if (!tokens?.refreshToken) {
+        await tokenStorage.clearTokens();
+        return null;
+      }
+
+      try {
+        const response = await refreshClient.post<AuthTokens>('/refresh', {
+          refreshToken: tokens.refreshToken,
+        });
+
+        const newTokens = response.data;
+        await tokenStorage.setTokens(newTokens);
+        return newTokens;
+      } catch {
+        await tokenStorage.clearTokens();
+        return null;
+      }
+    })().finally(() => {
+      refreshTokensPromise = null;
+    });
+  }
+
+  return refreshTokensPromise;
+}
+
 export const apiClient: AxiosInstance = axios.create({
   baseURL: `${API_URL}/api`,
   headers: {
@@ -41,23 +72,15 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const tokens = await tokenStorage.getTokens();
-        if (!tokens?.refreshToken) {
-          await tokenStorage.clearTokens();
+        const newTokens = await getSingleFlightRefreshedTokens();
+        if (!newTokens) {
           return Promise.reject(error);
         }
-
-        const response = await refreshClient.post<AuthTokens>('/refresh', {
-          refreshToken: tokens.refreshToken,
-        });
-
-        const newTokens = response.data;
-        await tokenStorage.setTokens(newTokens);
 
         originalRequest.headers.Authorization = `Bearer ${newTokens.accessToken}`;
         return apiClient(originalRequest);
       } catch {
-        await tokenStorage.clearTokens();
+        return Promise.reject(error);
       }
     }
 
