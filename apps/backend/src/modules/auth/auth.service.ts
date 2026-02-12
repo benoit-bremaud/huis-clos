@@ -6,6 +6,7 @@ import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/co
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { UserEntity } from '../users/users.service';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -35,7 +36,7 @@ export class AuthService {
     // Generate tokens
     const tokens = await this.generateTokens(user);
 
-    return { user, tokens };
+    return { user: this.toSharedUser(user), tokens };
   }
 
   async login(loginDto: LoginDto): Promise<{ user: User; tokens: AuthTokens }> {
@@ -54,7 +55,7 @@ export class AuthService {
     // Generate tokens
     const tokens = await this.generateTokens(user);
 
-    return { user, tokens };
+    return { user: this.toSharedUser(user), tokens };
   }
 
   async refreshTokens(refreshToken: string): Promise<AuthTokens> {
@@ -77,10 +78,23 @@ export class AuthService {
   async logout(userId: string): Promise<void> {
     // In a real app, you would invalidate the refresh token
     // For now, we just return success
+    void userId;
     return Promise.resolve();
   }
 
-  private async generateTokens(user: User): Promise<AuthTokens> {
+  private toSharedUser(user: UserEntity): User {
+    return {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      avatarUrl: user.avatarUrl,
+      bio: user.bio,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+    };
+  }
+
+  private async generateTokens(user: Pick<UserEntity, 'id' | 'email' | 'username'>): Promise<AuthTokens> {
     const payload = { sub: user.id, email: user.email, username: user.username };
 
     const accessToken = this.jwtService.sign(payload);

@@ -5,19 +5,10 @@ import {
   Param,
   Body,
   UseGuards,
-  Request,
 } from '@nestjs/common';
 import { ProfileService, ProfileResponse } from './profile.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-
-interface RequestWithUser extends Request {
-  user: {
-    sub: string;
-    email: string;
-    username: string;
-  };
-}
 
 @Controller('profile')
 export class ProfileController {

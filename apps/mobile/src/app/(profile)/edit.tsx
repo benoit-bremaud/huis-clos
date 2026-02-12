@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { ProfileResponse, UpdateProfileData, profileApi } from '../../services/api/profile';
+import { UpdateProfileData, profileApi } from '../../services/api/profile';
 import { useCallback, useState } from 'react';
 import { useFocusEffect, useRouter } from 'expo-router';
 
