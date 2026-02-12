@@ -5,9 +5,10 @@ import { logoutUseCase } from '../use-cases/logout.use-case';
 import { mapUserToModel } from '../../infrastructure/mappers/user.mapper';
 import { refreshTokenUseCase } from '../use-cases/refresh-token.use-case';
 import { registerUseCase } from '../use-cases/register.use-case';
+import { useCallback } from 'react';
 
 export function useAuthHook() {
-  async function loadCurrentUser(): Promise<UserModel | null> {
+  const loadCurrentUser = useCallback(async (): Promise<UserModel | null> => {
     try {
       const tokens = await authApiClient.getStoredTokens();
       if (!tokens) {
@@ -20,7 +21,7 @@ export function useAuthHook() {
       await authApiClient.clearTokens();
       return null;
     }
-  }
+  }, []);
 
   return {
     loadCurrentUser,

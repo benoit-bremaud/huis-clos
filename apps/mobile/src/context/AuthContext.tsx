@@ -53,8 +53,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function logout(): Promise<void> {
-    await logoutAction();
-    setUser(null);
+    try {
+      await logoutAction();
+    } finally {
+      setUser(null);
+    }
   }
 
   async function refreshToken(): Promise<void> {
