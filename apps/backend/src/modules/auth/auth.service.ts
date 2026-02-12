@@ -78,6 +78,7 @@ export class AuthService {
   async logout(userId: string): Promise<void> {
     // In a real app, you would invalidate the refresh token
     // For now, we just return success
+    void userId;
     return Promise.resolve();
   }
 

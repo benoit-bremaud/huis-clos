@@ -30,7 +30,7 @@ export default function RegisterScreen() {
     setIsLoading(true);
     try {
       await register(email, password, username);
-    } catch (error) {
+    } catch {
       Alert.alert(t('common.error'), 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);

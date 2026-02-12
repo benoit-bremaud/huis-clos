@@ -23,7 +23,7 @@ export default function LoginScreen() {
     setIsLoading(true);
     try {
       await login(email, password);
-    } catch (error) {
+    } catch {
       Alert.alert(t('common.error'), t('auth.errors.invalidCredentials'));
     } finally {
       setIsLoading(false);
