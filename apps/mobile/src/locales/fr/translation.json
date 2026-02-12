@@ -39,10 +39,31 @@
     "save": "Enregistrer",
     "delete": "Supprimer",
     "edit": "Modifier",
-    "close": "Fermer"
+    "close": "Fermer",
+    "ok": "OK",
+    "defaultLanguage": "Anglais"
   },
   "errors": {
     "network": "Erreur réseau. Veuillez vérifier votre connexion.",
     "unknown": "Une erreur inattendue s'est produite"
+  },
+  "profile": {
+    "title": "Mon profil",
+    "edit": "Modifier",
+    "editTitle": "Modifier le profil",
+    "username": "Nom d'utilisateur",
+    "bio": "Bio",
+    "bioPlaceholder": "Décrivez-vous en quelques mots...",
+    "avatarUrl": "URL de l'avatar",
+    "avatarUrlPlaceholder": "https://...",
+    "preferredLanguage": "Langue préférée",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "success": "Profil mis à jour avec succès",
+    "error": "Erreur lors du chargement du profil",
+    "errorLoading": "Impossible de charger le profil",
+    "errorSaving": "Impossible d'enregistrer les modifications",
+    "about": "À propos",
+    "noBio": "Aucune bio"
   }
 }
