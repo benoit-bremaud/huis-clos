@@ -75,6 +75,15 @@ export class AuthService {
     }
   }
 
+  async getCurrentUser(userId: string): Promise<User> {
+    const user = await this.usersService.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    return this.toSharedUser(user);
+  }
+
   async logout(userId: string): Promise<void> {
     // In a real app, you would invalidate the refresh token
     // For now, we just return success
