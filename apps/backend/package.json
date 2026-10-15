@@ -1,5 +1,5 @@
 {
-  "name": "velia-backend",
+  "name": "huis-clos-backend",
   "version": "1.0.0",
   "private": true,
   "main": "dist/main.js",

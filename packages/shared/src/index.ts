@@ -1,4 +1,4 @@
-// Shared types and utilities for Velia
+// Shared types and utilities for Huis Clos
 
 // User types
 export interface User {

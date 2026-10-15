@@ -1,3 +1,3 @@
-import { User } from '@velia/shared';
+import { User } from '@huis-clos/shared';
 
 export type UserModel = User;

@@ -10,7 +10,7 @@
     "useDefineForClassFields": false,
     "outDir": "dist",
     "paths": {
-      "@velia/shared": ["../../packages/shared/src"]
+      "@huis-clos/shared": ["../../packages/shared/src"]
     }
   },
   "include": ["src"],

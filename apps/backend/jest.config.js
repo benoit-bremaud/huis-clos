@@ -7,6 +7,6 @@ module.exports = {
   testRegex: '.*\\.spec\\.ts$',
   moduleFileExtensions: ['ts', 'js', 'json'],
   moduleNameMapper: {
-    '^@velia/shared$': '<rootDir>/../../packages/shared/src',
+    '^@huis-clos/shared$': '<rootDir>/../../packages/shared/src',
   },
 };

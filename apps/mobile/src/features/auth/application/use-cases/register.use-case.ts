@@ -1,5 +1,5 @@
 import { AuthResult } from '../../domain/types/auth.types';
-import { RegisterRequest } from '@velia/shared';
+import { RegisterRequest } from '@huis-clos/shared';
 import { authApiClient } from '../../infrastructure/api/auth-api.client';
 import { mapUserToModel } from '../../infrastructure/mappers/user.mapper';
 

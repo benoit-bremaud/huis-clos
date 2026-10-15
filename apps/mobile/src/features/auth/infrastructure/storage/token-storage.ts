@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthTokens } from '@velia/shared';
+import { AuthTokens } from '@huis-clos/shared';
 
 const TOKENS_KEY = '@velia/auth-tokens';
 
