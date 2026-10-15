@@ -1,8 +1,8 @@
 import { ExpoConfig } from 'expo/config';
 
 const config: ExpoConfig = {
-  name: 'Velia',
-  slug: 'velia',
+  name: 'Huis Clos',
+  slug: 'huis-clos',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './src/assets/icon.png',
@@ -15,14 +15,14 @@ const config: ExpoConfig = {
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.velia.app'
+    bundleIdentifier: 'app.huisclos.mobile'
   },
   android: {
     adaptiveIcon: {
       foregroundImage: './src/assets/adaptive-icon.png',
       backgroundColor: '#ffffff'
     },
-    package: 'com.velia.app'
+    package: 'app.huisclos.mobile'
   },
   web: {
     favicon: './src/assets/favicon.png'

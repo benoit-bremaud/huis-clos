@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthTokens } from '@huis-clos/shared';
 
-const TOKENS_KEY = '@velia/auth-tokens';
+const TOKENS_KEY = '@huis-clos/auth-tokens';
 
 export const tokenStorage = {
   async setTokens(tokens: AuthTokens): Promise<void> {
