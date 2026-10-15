@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest a new feature or improvement for Velia
+about: Suggest a new feature or improvement for Huis Clos
 title: "feat(scope): "
 labels: ["type::feature", "priority::medium"]
 assignees: "benoit-bremaud"

@@ -1,4 +1,4 @@
-# 🇫🇷 Velia - Chat Made in France
+# 🇫🇷 Huis Clos - Réseau social chiffré de bout en bout
 
 > Application de messagerie et réseau social français, respectueuse de la vie privée (RGPD native).
 
@@ -21,8 +21,8 @@ Créer une alternative française aux géants américains :
 
 ```bash
 # Cloner le repository
-git clone https://github.com/benoit-bremaud/velia.git
-cd velia
+git clone https://github.com/benoit-bremaud/huis-clos.git
+cd huis-clos
 
 # Installer les dépendances
 pnpm install

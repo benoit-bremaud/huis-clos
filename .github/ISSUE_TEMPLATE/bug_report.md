@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug or issue in Velia
+about: Report a bug or issue in Huis Clos
 title: "fix(scope): "
 labels: ["type::bug", "priority::high"]
 assignees: "benoit-bremaud"

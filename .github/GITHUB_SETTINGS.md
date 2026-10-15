@@ -150,11 +150,11 @@ Create the following labels in **Issues → Labels**:
 
 ## Quick Links
 
-- Repository Settings: `https://github.com/benoit-bremaud/velia/settings`
-- Branch Protection: `https://github.com/benoit-bremaud/velia/settings/branches`
-- Rules: `https://github.com/benoit-bremaud/velia/settings/rules`
-- Actions: `https://github.com/benoit-bremaud/velia/actions`
-- Issues: `https://github.com/benoit-bremaud/velia/issues`
+- Repository Settings: `https://github.com/benoit-bremaud/huis-clos/settings`
+- Branch Protection: `https://github.com/benoit-bremaud/huis-clos/settings/branches`
+- Rules: `https://github.com/benoit-bremaud/huis-clos/settings/rules`
+- Actions: `https://github.com/benoit-bremaud/huis-clos/actions`
+- Issues: `https://github.com/benoit-bremaud/huis-clos/issues`
 
 ---
 

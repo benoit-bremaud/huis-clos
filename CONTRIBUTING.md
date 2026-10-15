@@ -1,6 +1,6 @@
-# Contributing to Velia
+# Contributing to Huis Clos
 
-> Welcome to Velia! This document provides guidelines for contributing to the project.
+> Welcome to Huis Clos! This document provides guidelines for contributing to the project.
 
 ## Table of Contents
 
@@ -26,8 +26,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/benoit-bremaud/velia.git
-cd velia
+git clone https://github.com/benoit-bremaud/huis-clos.git
+cd huis-clos
 
 # Install dependencies
 pnpm install
@@ -125,7 +125,7 @@ Required information:
 <Text>{t('auth.login.welcome')}</Text>
 
 // ❌ INCORRECT
-<Text>Bienvenue sur Velia</Text>
+<Text>Bienvenue sur Huis Clos</Text>
 ```
 
 ### TypeScript
@@ -138,7 +138,7 @@ Required information:
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { externalLib } from 'external-lib';
-import { User } from '@velia/shared/types';
+import { User } from '@huis-clos/shared/types';
 import { authActions } from './auth.actions';
 
 // Interfaces for extensible shapes

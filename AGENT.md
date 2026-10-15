@@ -1,6 +1,6 @@
-# AGENT.md - Velia AI Assistant Guidelines
+# AGENT.md - Huis Clos AI Assistant Guidelines
 
-> **Document de référence pour les agents IA (Cline)** travaillant sur le projet Velia.
+> **Document de référence pour les agents IA (Cline)** travaillant sur le projet Huis Clos.
 > Ce document définit les règles, conventions et workflows à respecter impérativement.
 > 
 > **Langue :** Ce document est en français pour faciliter la compréhension de l'agent.
@@ -10,8 +10,8 @@
 
 ## 1. Principes Fondamentaux
 
-### 1.1 Mission de Velia
-Velia est une application de messagerie et réseau social français, respectueuse de la vie privée (RGPD native), construit comme alternative française aux géants américains.
+### 1.1 Mission de Huis Clos
+Huis Clos est une application de messagerie et réseau social français, respectueuse de la vie privée (RGPD native), construit comme alternative française aux géants américains.
 
 ### 1.2 Stack Technique
 - **Mobile** : React Native (Expo)
@@ -22,7 +22,7 @@ Velia est une application de messagerie et réseau social français, respectueus
 
 ### 1.3 Structure du Monorepo
 ```
-velia/
+huis-clos/
 ├── apps/
 │   ├── mobile/          # Expo React Native app
 │   └── backend/         # NestJS API
@@ -59,7 +59,7 @@ velia/
 <Text>{t('auth.login.welcome')}</Text>
 
 // ❌ INCORRECT
-<Text>Bienvenue sur Velia</Text>
+<Text>Bienvenue sur Huis Clos</Text>
 ```
 
 ---
@@ -361,7 +361,7 @@ fix(hotfix): critical production fix
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { someExternalLib } from 'external-lib';
-import { User } from '@velia/shared/types';
+import { User } from '@huis-clos/shared/types';
 import { authActions } from './auth.actions';
 
 // Interface pour les shapes extensibles
