@@ -1,23 +1,30 @@
-# Local review — huis-clos (chore/rename-huis-clos)
+# Local review — huis-clos (branch diff main...HEAD, #42)
 
-- Date: 2026-10-15
-- Commit: ad93c6e
-- Scope: branch diff main...HEAD (35 files, rename-only)
-- Checks run: design · docs · tests · security · correctness (single inline pass — the diff is a mechanical rename with no logic change)
-- Verdict: ship as-is  ·  Must 0 · Should 2 · Nice 1
+- Date: 2026-10-16
+- Scope: branch diff main...HEAD (config only: sonar-project.properties, package.json scripts, .gitignore, PROJECT_LOG)
+- Checks run: correctness · security · docs (pr-review-toolkit:code-reviewer, proportional to a config-only diff) + execution checks
+- Verdict: ship (push) · Must 0 open (1 fixed) · Should 2 · Nice 2
+
+## Pre-merge gate
+| Step | Result |
+|---|---|
+| 1 Tests | ✅ backend 9/9 · mobile/shared: no tests (#41) |
+| 2 Coverage | ❌ 17 % overall (floor 80) — tracked in #41 (#43–#48) |
+| 3 SonarQube | ✅ PASSED (self-hosted, project `huis-clos`) |
+| 4 Secrets | ✅ gitleaks clean (main..HEAD) · only `.env.example` tracked · diff read: nothing sensitive |
+| 5 QA pass | n/a — tooling-only diff, no runtime change; scan executed end to end |
+- Gate: **RED — step 2 (coverage)**, a known pre-existing gap; merging is the owner's call.
 
 ## 🔴 Must Have
-_None._
+- ~~`sonar-project.properties:9` [correctness] · specs indexed as both sources and tests~~ → fixed: test patterns added to `sonar.exclusions`.
 
 ## 🟡 Should Have
-- `README.md:24`, `CONTRIBUTING.md:29`, `.github/GITHUB_SETTINGS.md:153` `[docs]` · URLs now target `benoit-bremaud/huis-clos`, which does not exist until the GitHub repo is renamed · Rename the repo (`gh repo rename huis-clos`) immediately after merge; GitHub then redirects the old URL.
-- `docs/mvp-scope.md:52`, `README.md:3` `[docs]` · New title says "E2E-encrypted social network" while the subtitle still says "messagerie" and MVP scope lists E2E as out of scope · Rewrite the MVP scope and the vision in the dedicated E2E brick (tracked in PROJECT_LOG).
+- `sonar-project.properties:16` [correctness] · mobile/shared lcov files are absent until tests exist → documented in the file header.
+- `PROJECT_LOG.md` [docs] · figures re-checked after the fix (unchanged: gate OK, 17 %).
 
 ## 🔵 Nice to Have
-- `apps/mobile/src/features/auth/infrastructure/storage/token-storage.ts:4` `[correctness]` · Storage key change signs out existing sessions · Acceptable: no published app and no users yet.
+- `sonar-project.properties:13` [correctness] · `**/index.ts` coverage exclusion too broad → narrowed to `packages/shared/src/index.ts` (applied).
+- `apps/backend/jest.config.js` [tests] · no `collectCoverageFrom`; local Jest reports omit untested files → handle in #41.
 
 ## ⚪ Disagree / Intentional
-- `apps/mobile/app.config.ts:18` `[design]` · Bundle id `app.huisclos.mobile` does not use the slug spelling · Android forbids `-`; owner decision 2026-10-15 (PROJECT_LOG).
-
-## Per-dimension summary
-- Design: no structural change · Docs: 2 coherence follow-ups · Tests: 9/9 pass, fixtures moved to reserved `.test` TLD · Security: no secrets, no new surface · Correctness: lint + typecheck + tests green, zero `velia` left in tracked files.
+- No CI scan job: owner decision (self-hosted, localhost unreachable from GitHub runners, no PR decoration in Community Build).
