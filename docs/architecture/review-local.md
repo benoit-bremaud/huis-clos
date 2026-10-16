@@ -22,8 +22,8 @@
 - `02-component.md` `[docs]` · Fan-out return path missing · Fixed.
 
 ## 🔵 Nice to Have
-- `PROJECT_LOG.md:27` `[correctness]` · AGPL switch not tracked by an issue · Backlog issue to file.
-- `03-sequence.md` `[security]` · Envelope / pre-key replay out of scope · Backlog issue to file.
+- `PROJECT_LOG.md:27` `[correctness]` · AGPL switch not tracked by an issue · Filed as #39.
+- `03-sequence.md` `[security]` · Envelope / pre-key replay out of scope · Filed as #40.
 - `docs/mvp-scope.md:76` `[docs]` · libsignal has no React Native binding; binding approach to refine · Covered by Phase 1 spike.
 - `PROJECT_LOG.md:23` `[correctness]` · #36 vs #37 confusion · Disagree: verified on GitHub — #36 is the repo rename (closed), #37 this brick; the log is correct.
 
