@@ -1,13 +1,15 @@
 # 🇫🇷 Huis Clos - Réseau social chiffré de bout en bout
 
-> Application de messagerie et réseau social français, respectueuse de la vie privée (RGPD native).
+> Réseau social français chiffré de bout en bout : identité par clés, conversations privées et cercles, sur un serveur qui ne voit rien.
 
 ## Vision
 
-Créer une alternative française aux géants américains :
-- **Sécurité & RGPD** : Privacy by design, chiffrement
-- **Expérience premium** : UI/UX fluide, mobile-first
-- **Made in France** : Hébergement FR/EU
+- **Chiffrement de bout en bout** : protocole Signal (libsignal) pour le 1-1, MLS (RFC 9420, OpenMLS) pour les cercles
+- **Serveur aveugle** : relais de messages chiffrés, *sealed sender*, padding des tailles — aucun contenu en clair côté serveur
+- **Identité par clés** : ni numéro de téléphone ni email requis
+- **Made in France** : hébergement FR/EU, RGPD natif
+
+Périmètre et phases : [docs/mvp-scope.md](docs/mvp-scope.md) · Diagrammes : [docs/architecture/diagrams/e2e-messaging/](docs/architecture/diagrams/e2e-messaging/)
 
 ## Stack Technique
 
@@ -15,7 +17,7 @@ Créer une alternative française aux géants américains :
 - **Backend** : NestJS (Node.js + TypeScript)
 - **Base de données** : PostgreSQL + Redis
 - **Temps réel** : WebSocket (Socket.io)
-- **Authentification** : JWT + refresh tokens
+- **Authentification** : JWT + refresh tokens (legacy, remplacé par l'authentification par clés — voir [docs/mvp-scope.md](docs/mvp-scope.md))
 
 ## Démarrage Rapide
 
