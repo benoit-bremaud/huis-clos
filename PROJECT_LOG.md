@@ -42,3 +42,7 @@ Chronological audit trail of decisions and milestones, complementing `git log`.
   coverage / SonarQube steps are still red (pre-existing, tracked in #41, #42).
 - **Reviewers**: Codex quota exhausted and Copilot reviewer unavailable; substitute review by
   the local `pr-review-toolkit` agents on #38.
+- **Gate exception (owner, MCDA 440/500)**: PR #38 merged although pre-merge gate steps 2–3
+  (coverage, SonarQube) are red. Rationale: docs-only diff, no runtime impact, and the
+  "one chat per brick" rule otherwise deadlocks #41/#42. CI fully green on the merged head.
+  One-off exception for docs-only PRs; code PRs stay bound by the full gate.

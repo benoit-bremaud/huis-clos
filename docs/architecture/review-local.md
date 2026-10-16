@@ -42,3 +42,6 @@ _None._
 | 3 SonarQube | ❌ not run — no Sonar project exists for velia / huis-clos |
 | 4 Secrets + diff read | ✅ gitleaks `main..HEAD` no leaks · diff read manually |
 | 5 QA (smoke, docs-only) | ✅ lint + typecheck green · all Mermaid diagrams render: `docs/architecture/qa/2026-10-16-*.png` |
+
+**Owner exception (2026-10-16):** merge authorised with steps 2–3 red — docs-only PR, CI green
+(Quality Gate, Gitleaks, branch/commit/title validation). Next bricks: #42, then #41.
