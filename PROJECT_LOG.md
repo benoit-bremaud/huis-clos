@@ -16,3 +16,15 @@ Chronological audit trail of decisions and milestones, complementing `git log`.
   rewritten in a dedicated brick.
 - **Pending (owner)**: INPI / EUIPO trademark search (classes 9, 38, 42), register `huisclos.app`,
   rename the GitHub repository after merge.
+
+## 2026-10-16 — PR #33 merged (rename) and E2E MVP scope rewritten
+
+- **Merged**: PR #33 `chore: rename project Velia to Huis Clos`, squash commit `70efe87`.
+  Follow-ups: #34, #35, #36 (rename GitHub repo), #37.
+- **Decision (#37)**: MVP = key-based identity → 1-1 Signal chat → MLS circles with encrypted text
+  posts; media and encrypted backup after. Server is a blind relay (sealed sender, size padding).
+- **Decision (#37, MCDA)**: libsignal for 1-1 (385/500 vs vodozemac 340), OpenMLS for circles
+  (430/500 vs mls-rs 390). Owner accepted the consequence: libsignal is AGPL-3.0, so the repo
+  license (currently MIT) must move to AGPL-3.0 before libsignal code ships.
+- **Docs**: UML use-case, component and sequence diagrams under
+  `docs/architecture/diagrams/e2e-messaging/`.
