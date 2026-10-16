@@ -2,6 +2,16 @@
 
 Chronological audit trail of decisions and milestones, complementing `git log`.
 
+## 2026-10-16 — SonarQube analysis set up (#42)
+
+- **Decision**: self-hosted SonarQube (`localhost:9000`, project key `huis-clos`), the machine-wide
+  standard. No CI scan job: GitHub-hosted runners cannot reach localhost, and the Community Build has
+  no PR decoration, so the quality gate is read locally (dashboard / REST), not on the PR.
+- **Added**: `sonar-project.properties` (backend, mobile, shared sources + Jest lcov) and `pnpm sonar`
+  (coverage, then `sonar-scanner` with the global analysis token). `test:coverage` now passes with no tests.
+- **First scan**: gate OK (Sonar way, new-code conditions only), overall coverage 17 %, 0 bugs,
+  0 vulnerabilities, 12 code smells. Coverage work continues in #41 (#43–#48).
+
 ## 2026-10-15 — Project renamed Velia → Huis Clos, pivot to E2E-encrypted social network
 
 - **Decision**: rename the project from *Velia* to *Huis Clos* (slug `huis-clos`, npm scope `@huis-clos/*`).
