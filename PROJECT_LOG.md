@@ -28,3 +28,17 @@ Chronological audit trail of decisions and milestones, complementing `git log`.
   license (currently MIT) must move to AGPL-3.0 before libsignal code ships.
 - **Docs**: UML use-case, component and sequence diagrams under
   `docs/architecture/diagrams/e2e-messaging/`.
+
+## 2026-10-16 — Repository made public, Gitleaks CI merged
+
+- **Incident**: every GitHub Actions job refused to start (account billing / spending limit).
+  Owner cannot pay for now.
+- **Decision (MCDA)**: switch the repo to public (445/500) over a self-hosted runner (380) or
+  local-only checks (275). Consistent with the owner rule "public until first production
+  deployment" — the repo had been private by mistake. Public release checklist green
+  (full-history gitleaks clean, `.env.example` placeholders only, no dev secret to rotate).
+- **Merged**: PR #51 `ci: add gitleaks secret scan workflow`, squash `8fa8063` (closes #50),
+  the last missing checklist item. Merged with owner approval while the pre-merge gate
+  coverage / SonarQube steps are still red (pre-existing, tracked in #41, #42).
+- **Reviewers**: Codex quota exhausted and Copilot reviewer unavailable; substitute review by
+  the local `pr-review-toolkit` agents on #38.
