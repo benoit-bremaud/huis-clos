@@ -1,6 +1,6 @@
 # Clean Architecture & SOLID Principles
 
-This document defines the architectural standards for Velia.
+This document defines the architectural standards for Huis Clos.
 
 ## Core Principles
 
@@ -190,7 +190,7 @@ features/
 
 ## Shared Package Rules
 
-### Allowed in `@velia/shared`
+### Allowed in `@huis-clos/shared`
 
 ✅ **Allowed:**
 - TypeScript interfaces/types

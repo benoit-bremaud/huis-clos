@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 
-import { AuthTokens, User } from '@velia/shared';
+import { AuthTokens, User } from '@huis-clos/shared';
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';

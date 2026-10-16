@@ -1,4 +1,4 @@
-# MVP Scope - Velia
+# MVP Scope - Huis Clos
 
 ## Objectif MVP
 Construire une application de chat fonctionnelle avec les fonctionnalités essentielles.

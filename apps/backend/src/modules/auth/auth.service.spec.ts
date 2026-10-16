@@ -32,7 +32,7 @@ describe('AuthService', () => {
 
   const makeUserEntity = () => ({
     id: 'user-1',
-    email: 'john@velia.app',
+    email: 'john@huis-clos.test',
     username: 'john',
     password: 'hashed-password',
     avatarUrl: undefined,
@@ -50,7 +50,7 @@ describe('AuthService', () => {
   describe('register', () => {
     it('should create user and return mapped user + tokens', async () => {
       const dto: RegisterDto = {
-        email: 'john@velia.app',
+        email: 'john@huis-clos.test',
         username: 'john',
         password: 'password123',
       };
@@ -84,7 +84,7 @@ describe('AuthService', () => {
 
     it('should throw ConflictException if email already exists', async () => {
       const dto: RegisterDto = {
-        email: 'john@velia.app',
+        email: 'john@huis-clos.test',
         username: 'john',
         password: 'password123',
       };
@@ -97,7 +97,7 @@ describe('AuthService', () => {
 
   describe('login', () => {
     it('should return mapped user + tokens when credentials are valid', async () => {
-      const dto: LoginDto = { email: 'john@velia.app', password: 'password123' };
+      const dto: LoginDto = { email: 'john@huis-clos.test', password: 'password123' };
 
       usersServiceMock.findByEmail = jest.fn().mockResolvedValue(makeUserEntity());
       mockBcryptCompare.mockResolvedValue(true as never);
@@ -113,14 +113,14 @@ describe('AuthService', () => {
     });
 
     it('should throw UnauthorizedException when user does not exist', async () => {
-      const dto: LoginDto = { email: 'nobody@velia.app', password: 'password123' };
+      const dto: LoginDto = { email: 'nobody@huis-clos.test', password: 'password123' };
       usersServiceMock.findByEmail = jest.fn().mockResolvedValue(null);
 
       await expect(authService.login(dto)).rejects.toThrow(UnauthorizedException);
     });
 
     it('should throw UnauthorizedException when password is invalid', async () => {
-      const dto: LoginDto = { email: 'john@velia.app', password: 'bad-password' };
+      const dto: LoginDto = { email: 'john@huis-clos.test', password: 'bad-password' };
 
       usersServiceMock.findByEmail = jest.fn().mockResolvedValue(makeUserEntity());
       mockBcryptCompare.mockResolvedValue(false as never);
@@ -164,7 +164,7 @@ describe('AuthService', () => {
 
       expect(result).toMatchObject({
         id: 'user-1',
-        email: 'john@velia.app',
+        email: 'john@huis-clos.test',
         username: 'john',
       });
     });

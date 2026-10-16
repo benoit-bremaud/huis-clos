@@ -4,7 +4,7 @@
     "jsx": "react-native",
     "baseUrl": ".",
     "paths": {
-      "@velia/shared": ["../../packages/shared/src"]
+      "@huis-clos/shared": ["../../packages/shared/src"]
     }
   },
   "include": ["src", "**/*.ts", "**/*.tsx", "app.config.ts"]

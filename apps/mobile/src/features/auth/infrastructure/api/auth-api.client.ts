@@ -1,4 +1,4 @@
-import { AuthTokens, LoginRequest, RegisterRequest, User } from '@velia/shared';
+import { AuthTokens, LoginRequest, RegisterRequest, User } from '@huis-clos/shared';
 import axios, { AxiosInstance } from 'axios';
 
 import { tokenStorage } from '../storage/token-storage';

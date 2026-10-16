@@ -1,6 +1,6 @@
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
-import { User } from '@velia/shared';
+import { User } from '@huis-clos/shared';
 import { useAuthHook } from '../features/auth/application/hooks/use-auth.hook';
 
 interface AuthContextType {

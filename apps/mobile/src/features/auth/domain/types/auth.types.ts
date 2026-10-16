@@ -1,4 +1,4 @@
-import { AuthTokens } from '@velia/shared';
+import { AuthTokens } from '@huis-clos/shared';
 import { UserModel } from '../models/user.model';
 
 export interface AuthResult {

@@ -1,7 +1,7 @@
 {
-  "name": "velia",
+  "name": "huis-clos",
   "version": "1.0.0",
-  "description": "French privacy-first messaging app - Made in France",
+  "description": "French end-to-end encrypted social network - Made in France",
   "private": true,
   "author": "Benoit Bremaud <benoit.bremaud@outlook.fr>",
   "license": "MIT",
@@ -12,11 +12,11 @@
   ],
   "scripts": {
     "dev": "pnpm --recursive run dev",
-    "dev:mobile": "pnpm --filter velia-mobile run dev",
-    "dev:backend": "pnpm --filter velia-backend run dev",
+    "dev:mobile": "pnpm --filter huis-clos-mobile run dev",
+    "dev:backend": "pnpm --filter huis-clos-backend run dev",
     "build": "pnpm --recursive run build",
-    "build:mobile": "pnpm --filter velia-mobile run build",
-    "build:backend": "pnpm --filter velia-backend run build",
+    "build:mobile": "pnpm --filter huis-clos-mobile run build",
+    "build:backend": "pnpm --filter huis-clos-backend run build",
     "typecheck": "pnpm --recursive run typecheck",
     "lint": "pnpm --recursive run lint",
     "lint:fix": "pnpm --recursive run lint:fix",
@@ -36,7 +36,7 @@
     "node": ">=20.0.0"
   },
   "keywords": [
-    "velia",
+    "huis-clos",
     "messaging",
     "privacy",
     "france",

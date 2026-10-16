@@ -2,7 +2,7 @@
 
 ## Epic Overview
 
-Implement Clean Architecture & SOLID principles across the Velia monorepo (backend + mobile) to improve code maintainability, testability, and long-term scalability.
+Implement Clean Architecture & SOLID principles across the Huis Clos monorepo (backend + mobile) to improve code maintainability, testability, and long-term scalability.
 
 ## Motivation
 
