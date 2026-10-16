@@ -25,7 +25,7 @@
 - `PROJECT_LOG.md:27` `[correctness]` · AGPL switch not tracked by an issue · Backlog issue to file.
 - `03-sequence.md` `[security]` · Envelope / pre-key replay out of scope · Backlog issue to file.
 - `docs/mvp-scope.md:76` `[docs]` · libsignal has no React Native binding; binding approach to refine · Covered by Phase 1 spike.
-- `PROJECT_LOG.md:23` `[correctness]` · #36 vs #37 confusion · Disagree: #36 is the repo rename, #37 this brick (memory note was wrong).
+- `PROJECT_LOG.md:23` `[correctness]` · #36 vs #37 confusion · Disagree: #36 is the repo rename, #37 this brick; memory agrees (reviewer misread it).
 
 ## ⚪ Disagree / Intentional
 _None._
