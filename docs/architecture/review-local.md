@@ -1,47 +1,30 @@
-# Local review — huis-clos (docs/37-e2e-mvp-scope)
+# Local review — huis-clos (branch diff main...HEAD, #42)
 
 - Date: 2026-10-16
-- Commit: ad94a52 (reviewed; all `file:line` refs below are @ad94a52) → fixes in d649abf
-- Scope: branch diff main...HEAD (docs only: mvp-scope, README, PROJECT_LOG, 3 UML diagrams)
-- Checks run: design · docs · tests · security · correctness
-- Verdict: ship after fixes  ·  Must 4 (fixed) · Should 7 (6 fixed, 1 deferred) · Nice 4
+- Scope: branch diff main...HEAD (config only: sonar-project.properties, package.json scripts, .gitignore, PROJECT_LOG)
+- Checks run: correctness · security · docs (pr-review-toolkit:code-reviewer, proportional to a config-only diff) + execution checks
+- Verdict: ship (push) · Must 0 open (1 fixed) · Should 2 · Nice 2
+
+## Pre-merge gate
+| Step | Result |
+|---|---|
+| 1 Tests | ✅ backend 9/9 · mobile/shared: no tests (#41) |
+| 2 Coverage | ❌ 17 % overall (floor 80) — tracked in #41 (#43–#48) |
+| 3 SonarQube | ✅ PASSED (self-hosted, project `huis-clos`) |
+| 4 Secrets | ✅ gitleaks clean (main..HEAD) · only `.env.example` tracked · diff read: nothing sensitive |
+| 5 QA pass | n/a — tooling-only diff, no runtime change; scan executed end to end |
+- Gate: **RED — step 2 (coverage)**, a known pre-existing gap; merging is the owner's call.
 
 ## 🔴 Must Have
-- `docs/architecture/diagrams/e2e-messaging/02-component.md:22` `[design|security]` · No auth component; unclear which endpoints are authenticated vs sealed · Fixed: Key auth component, every link labelled, relay send = delivery token only.
-- `docs/mvp-scope.md:12` `[security]` · Threat model overclaimed: MLS Delivery Service sees circle membership and posters · Fixed: "Known metadata leaks (accepted for the MVP)".
-- `docs/mvp-scope.md:28` `[security]` · Key-auth challenge had no anti-replay spec · Fixed: single-use nonce, short expiry, context string, connection binding.
-- `docs/architecture/diagrams/e2e-messaging/03-sequence.md:24` `[security|correctness]` · PQXDH bundle lacked the Kyber pre-key and signature check · Fixed.
+- ~~`sonar-project.properties:9` [correctness] · specs indexed as both sources and tests~~ → fixed: test patterns added to `sonar.exclusions`.
 
 ## 🟡 Should Have
-- `README.md:20` `[docs]` · JWT listed as current auth · Fixed: marked legacy.
-- `docs/mvp-scope.md:26` `[security]` · Pre-key exhaustion · Fixed: last-resort key, refill, rate limit.
-- `docs/mvp-scope.md:35` `[security]` · Delivery token origin / relay retention · Fixed: profile-key derived token, 30-day cap, hour-rounded timestamps.
-- `docs/mvp-scope.md:23` `[security]` · Local key storage and TOFU warning unspecified · Fixed: Keychain/Keystore, identity-change block.
-- `02-component.md:32` `[design]` · Crypto module doing networking · Fixed: separate API/WebSocket client.
-- `02-component.md:24` `[design]` · Relay and Delivery Service duplicate queueing · Deferred to #49 (Phase 3).
-- `02-component.md` `[docs]` · Fan-out return path missing · Fixed.
+- `sonar-project.properties:16` [correctness] · mobile/shared lcov files are absent until tests exist → documented in the file header.
+- `PROJECT_LOG.md` [docs] · figures re-checked after the fix (unchanged: gate OK, 17 %).
 
 ## 🔵 Nice to Have
-- `PROJECT_LOG.md:27` `[correctness]` · AGPL switch not tracked by an issue · Filed as #39.
-- `03-sequence.md` `[security]` · Envelope / pre-key replay out of scope · Filed as #40.
-- `docs/mvp-scope.md:76` `[docs]` · libsignal has no React Native binding; binding approach to refine · Covered by Phase 1 spike.
-- `PROJECT_LOG.md:23` `[correctness]` · #36 vs #37 confusion · Disagree: verified on GitHub — #36 is the repo rename (closed), #37 this brick; the log is correct.
+- `sonar-project.properties:13` [correctness] · `**/index.ts` coverage exclusion too broad → narrowed to `packages/shared/src/index.ts` (applied).
+- `apps/backend/jest.config.js` [tests] · no `collectCoverageFrom`; local Jest reports omit untested files → handle in #41.
 
 ## ⚪ Disagree / Intentional
-_None._
-
-## Per-dimension summary
-- Design: sound dependency direction; auth + transport seams added · Docs: ~95 % accurate, links valid · Tests: no code changed, no test needed · Security: metadata leaks now stated, auth/PQXDH specified · Correctness: no contradictions left.
-
-## Pre-merge gate (head SHA)
-
-| Step | Result |
-|------|--------|
-| 1 Tests | ✅ backend 9/9 · ⚠️ mobile and shared have no tests (`jest` exits 1, pre-existing) |
-| 2 Coverage | ❌ tests: backend 62.9 % lines (< 80 % floor), mobile/shared 0 — pre-existing, untouched by this diff · docs: ~95 % (≥ 90 %) |
-| 3 SonarQube | ❌ not run — no Sonar project exists for velia / huis-clos |
-| 4 Secrets + diff read | ✅ gitleaks `main..HEAD` no leaks · diff read manually |
-| 5 QA (smoke, docs-only) | ✅ lint + typecheck green · all Mermaid diagrams render: `docs/architecture/qa/2026-10-16-*.png` |
-
-**Owner exception (2026-10-16):** merge authorised with steps 2–3 red — docs-only PR, CI green
-(Quality Gate, Gitleaks, branch/commit/title validation). Next bricks: #42, then #41.
+- No CI scan job: owner decision (self-hosted, localhost unreachable from GitHub runners, no PR decoration in Community Build).
