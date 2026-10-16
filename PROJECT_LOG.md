@@ -16,3 +16,33 @@ Chronological audit trail of decisions and milestones, complementing `git log`.
   rewritten in a dedicated brick.
 - **Pending (owner)**: INPI / EUIPO trademark search (classes 9, 38, 42), register `huisclos.app`,
   rename the GitHub repository after merge.
+
+## 2026-10-16 — PR #33 merged (rename) and E2E MVP scope rewritten
+
+- **Merged**: PR #33 `chore: rename project Velia to Huis Clos`, squash commit `70efe87`.
+  Follow-ups: #34, #35, #36 (rename GitHub repo), #37.
+- **Decision (#37)**: MVP = key-based identity → 1-1 Signal chat → MLS circles with encrypted text
+  posts; media and encrypted backup after. Server is a blind relay (sealed sender, size padding).
+- **Decision (#37, MCDA)**: libsignal for 1-1 (385/500 vs vodozemac 340), OpenMLS for circles
+  (430/500 vs mls-rs 390). Owner accepted the consequence: libsignal is AGPL-3.0, so the repo
+  license (currently MIT) must move to AGPL-3.0 before libsignal code ships.
+- **Docs**: UML use-case, component and sequence diagrams under
+  `docs/architecture/diagrams/e2e-messaging/`.
+
+## 2026-10-16 — Repository made public, Gitleaks CI merged
+
+- **Incident**: every GitHub Actions job refused to start (account billing / spending limit).
+  Owner cannot pay for now.
+- **Decision (MCDA)**: switch the repo to public (445/500) over a self-hosted runner (380) or
+  local-only checks (275). Consistent with the owner rule "public until first production
+  deployment" — the repo had been private by mistake. Public release checklist green
+  (full-history gitleaks clean, `.env.example` placeholders only, no dev secret to rotate).
+- **Merged**: PR #51 `ci: add gitleaks secret scan workflow`, squash `8fa8063` (closes #50),
+  the last missing checklist item. Merged with owner approval while the pre-merge gate
+  coverage / SonarQube steps are still red (pre-existing, tracked in #41, #42).
+- **Reviewers**: Codex quota exhausted and Copilot reviewer unavailable; substitute review by
+  the local `pr-review-toolkit` agents on #38.
+- **Gate exception (owner, MCDA 440/500)**: PR #38 merged although pre-merge gate steps 2–3
+  (coverage, SonarQube) are red. Rationale: docs-only diff, no runtime impact, and the
+  "one chat per brick" rule otherwise deadlocks #41/#42. CI fully green on the merged head.
+  One-off exception for docs-only PRs; code PRs stay bound by the full gate.
