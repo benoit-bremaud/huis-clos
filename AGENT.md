@@ -10,7 +10,7 @@
 
 ## 1. Principes Fondamentaux
 
-### 1.1 Mission de Huis Clos
+Huis Clos est un réseau social français chiffré de bout en bout (identité par clés, conversations privées et cercles, serveur aveugle), RGPD natif, construit comme alternative française aux géants américains. Périmètre : `docs/mvp-scope.md`.
 Huis Clos est une application de messagerie et réseau social français, respectueuse de la vie privée (RGPD native), construit comme alternative française aux géants américains.
 
 ### 1.2 Stack Technique

@@ -51,7 +51,7 @@ metadata as possible.
 - Relay retention: envelopes deleted on acknowledgement, at most 30 days otherwise;
   timestamps rounded to the hour.
 - **Size padding**: ciphertexts are padded to fixed buckets to hide message length.
-- Text messages only, offline delivery (store-and-forward, deleted after acknowledgement).
+- Text messages only, offline delivery (store-and-forward).
 
 ### Phase 3 — Circles (Must)
 
@@ -70,7 +70,7 @@ metadata as possible.
 ## Out of scope
 
 - Audio/video calls, stories, public feed, discovery by phone number or contacts upload.
-- Federation (FUTO Circles relies on Matrix; we deliberately stay single-provider for the MVP).
+- Federation (FUTO Circles relies on Matrix as of 2026-10; we deliberately stay single-provider for the MVP).
 
 ## Protocol and library choices (MCDA, 2026-10-16)
 
