@@ -21,7 +21,8 @@ sequenceDiagram
     Alice->>AD: Write message to Bob
     alt no session yet
         AD->>K: GET Bob's pre-key bundle
-        K-->>AD: identity key, signed pre-key, one-time pre-key
+        K-->>AD: identity key, signed EC pre-key, signed Kyber pre-key, one-time pre-key
+        AD->>AD: Verify pre-key signatures (abort on failure)
         AD->>AD: PQXDH → session
     end
     AD->>AD: Double Ratchet encrypt + pad to bucket
@@ -48,7 +49,7 @@ sequenceDiagram
     AD->>AD: MLS encrypt (current epoch) + pad
     AD->>DS: POST application message (group id, epoch)
     DS->>DS: Check epoch ordering
-    DS->>MD: Fan-out to current members
+    DS->>MD: Fan-out to current members (WebSocket)
     MD->>MD: MLS decrypt with epoch secret
 ```
 

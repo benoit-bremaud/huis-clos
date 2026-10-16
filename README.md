@@ -17,7 +17,7 @@ Périmètre et phases : [docs/mvp-scope.md](docs/mvp-scope.md) · Diagrammes : [
 - **Backend** : NestJS (Node.js + TypeScript)
 - **Base de données** : PostgreSQL + Redis
 - **Temps réel** : WebSocket (Socket.io)
-- **Authentification** : JWT + refresh tokens
+- **Authentification** : JWT + refresh tokens (legacy, remplacé par l'authentification par clés — voir [docs/mvp-scope.md](docs/mvp-scope.md))
 
 ## Démarrage Rapide
 

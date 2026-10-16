@@ -14,7 +14,12 @@ metadata as possible.
   compromise must not reveal message or post content, and should reveal as little as
   possible about who talks to whom.
 - **Out of scope for the MVP**: compromised devices, traffic-analysis resistance at the
-  network level (Tor-style mixing), coercion.
+  network level (Tor-style mixing), coercion, lost-device recovery (losing the only device
+  loses the account until encrypted backup ships).
+- **Known metadata leaks (accepted for the MVP)**: the server sees each circle's membership
+  (needed by the MLS Delivery Service to fan out), group ids and epochs, who posts to a circle
+  (posts are sent over an authenticated connection, no sealed sender for circles), recipient
+  ids, coarse timestamps and client IPs. Hidden group membership is a post-MVP study.
 
 ## Phases (in order)
 
@@ -23,16 +28,28 @@ metadata as possible.
 - On-device generation of a long-term identity key pair; no phone number or email required.
 - Account = public identity key + random handle; the private key never leaves the device.
 - Contact verification by QR code / safety number (fingerprint comparison).
-- Upload of signed pre-keys and one-time pre-keys (Signal key bundle).
+- Upload of the Signal key bundle: signed EC pre-key, signed post-quantum (Kyber) pre-key,
+  one-time pre-keys and a last-resort pre-key. Clients refill below a threshold; bundle
+  fetches are rate-limited so an attacker cannot drain one-time pre-keys.
+- Trust on first use: a contact's identity key change blocks sending until the user
+  acknowledges a warning (protects against key substitution by the directory).
+- Private keys and the local store key live in iOS Keychain / Android Keystore; uninstalling
+  the app destroys them.
 - The existing email/password + JWT auth (`apps/backend` auth module) becomes legacy and is
-  replaced by key-based authentication (challenge signed by the device key); the matching
+  replaced by key-based authentication: the server issues a single-use random nonce with a
+  short expiry, the device signs `huis-clos-auth-v1 || nonce || connection id`, and the
+  server consumes the nonce on verification (no replay). The matching
   `User.email` / `AuthTokens` types in `packages/shared` are legacy too.
 
 ### Phase 2 — 1-1 E2E chat (Must)
 
 - Signal protocol via **libsignal**: PQXDH session setup + Double Ratchet
   (forward secrecy and post-compromise security).
-- **Sealed sender**: the server delivers to a recipient without learning the sender.
+- **Sealed sender**: the server delivers to a recipient without learning the sender. Sends to
+  the relay are unauthenticated and carry a delivery token derived from the recipient's
+  profile key, shared only with contacts and revoked by rotating that key.
+- Relay retention: envelopes deleted on acknowledgement, at most 30 days otherwise;
+  timestamps rounded to the hour.
 - **Size padding**: ciphertexts are padded to fixed buckets to hide message length.
 - Text messages only, offline delivery (store-and-forward, deleted after acknowledgement).
 
