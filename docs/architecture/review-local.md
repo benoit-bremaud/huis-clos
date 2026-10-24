@@ -1,30 +1,39 @@
-# Local review — huis-clos (branch diff main...HEAD, #42)
+# Local review — huis-clos (branch diff main...HEAD, #53)
 
-- Date: 2026-10-16
-- Scope: branch diff main...HEAD (config only: sonar-project.properties, package.json scripts, .gitignore, PROJECT_LOG)
-- Checks run: correctness · security · docs (pr-review-toolkit:code-reviewer, proportional to a config-only diff) + execution checks
-- Verdict: ship (push) · Must 0 open (1 fixed) · Should 2 · Nice 2
+- Date: 2026-10-24
+- Commit: fea5650
+- Scope: branch diff main...HEAD (docs only: `docs/mvp-scope.md`, +19 lines)
+- Checks run: execution checks + manual diff read (design, tests and security agents skipped: no code in the diff)
+- Verdict: ship (push) · Must 0 · Should 0 · Nice 1
 
-## Pre-merge gate
+## Pre-merge gate (head SHA fea5650)
+
 | Step | Result |
 |---|---|
-| 1 Tests | ✅ backend 9/9 · mobile/shared: no tests (#41) |
-| 2 Coverage | ❌ 17 % overall (floor 80) — tracked in #41 (#43–#48) |
-| 3 SonarQube | ✅ PASSED (self-hosted, project `huis-clos`) |
+| 1 Tests | ✅ 9 backend unit tests pass · mobile and shared have no tests |
+| 2 Coverage | ❌ backend 65.15 % stmts / 66.66 % branches / 50 % funcs / 62.9 % lines · mobile 0 % · shared 0 % (floor 80, pre-existing, tracked by #43–#48) · docs coverage ⚠️ not measured (no counter in this repo) |
+| 3 SonarQube | ✅ PASSED (new_violations 0) |
 | 4 Secrets | ✅ gitleaks clean (main..HEAD) · only `.env.example` tracked · diff read: nothing sensitive |
-| 5 QA pass | n/a — tooling-only diff, no runtime change; scan executed end to end |
-- Gate: **RED — step 2 (coverage)**, a known pre-existing gap; merging is the owner's call.
+| 5 QA pass | ⚠️ not run: docs-only diff, product not started |
+
+- Gate: **RED on step 2** — coverage floor fails on existing code, not on this diff. Merge needs an explicit owner waiver (as for PR #52).
 
 ## 🔴 Must Have
-- ~~`sonar-project.properties:9` [correctness] · specs indexed as both sources and tests~~ → fixed: test patterns added to `sonar.exclusions`.
+
+_None._
 
 ## 🟡 Should Have
-- `sonar-project.properties:16` [correctness] · mobile/shared lcov files are absent until tests exist → documented in the file header.
-- `PROJECT_LOG.md` [docs] · figures re-checked after the fix (unchanged: gate OK, 17 %).
+
+_None._
 
 ## 🔵 Nice to Have
-- `sonar-project.properties:13` [correctness] · `**/index.ts` coverage exclusion too broad → narrowed to `packages/shared/src/index.ts` (applied).
-- `apps/backend/jest.config.js` [tests] · no `collectCoverageFrom`; local Jest reports omit untested files → handle in #41.
+
+- `docs/mvp-scope.md` `[docs]` · markdownlint is not installed locally, so the lint check relies on CI · install it as a dev dependency.
 
 ## ⚪ Disagree / Intentional
-- No CI scan job: owner decision (self-hosted, localhost unreachable from GitHub runners, no PR decoration in Community Build).
+
+- Coverage floor red `[tests]` · pre-existing, fixed by #43–#48 · precedent: PR #52 merged under owner approval.
+
+## Per-dimension summary
+
+- Design: n/a (no code) · Docs: new section consistent with the threat model, relative links valid · Tests: suite green, coverage debt pre-existing · Security: no secrets, content strengthens the transport requirements · Correctness: n/a
