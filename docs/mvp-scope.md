@@ -96,7 +96,9 @@ End-to-end encryption protects content; the client-server link must not let a
 man-in-the-middle read or tamper with anything else.
 
 - **TLS 1.3 only**, mandatory on every connection (REST and WebSocket). No plaintext
-  fallback, no downgrade to older TLS versions.
+  fallback, no downgrade to older TLS versions. Android's platform TLS stack only
+  negotiates TLS 1.3 from Android 10 (API 29), so the mobile app requires Android 10 or
+  later (`minSdkVersion` 29, to be set in the app config when the transport layer ships).
 - **Certificate pinning** in the mobile app, with a backup pin so a certificate can be
   rotated without locking users out. Pins and the rotation procedure are documented.
 - **Fail closed**: on a certificate or pin mismatch the app refuses the connection and
