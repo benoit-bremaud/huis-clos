@@ -1,19 +1,19 @@
 # Local review — huis-clos (branch diff main...HEAD, #53)
 
 - Date: 2026-10-24
-- Commit: fea5650
-- Scope: branch diff main...HEAD (docs only: `docs/mvp-scope.md`, +19 lines)
-- Checks run: execution checks + manual diff read (design, tests and security agents skipped: no code in the diff)
+- Commit: ca2d747 (reviewed code and docs; this report is committed on top of it)
+- Scope: branch diff main...HEAD (docs only: `docs/mvp-scope.md`, +21 lines)
+- Checks run: execution checks + manual diff read (re-read after the Android 10 fix) (design, tests and security agents skipped: no code in the diff)
 - Verdict: ship (push) · Must 0 · Should 0 · Nice 1
 
-## Pre-merge gate (head SHA fea5650)
+## Pre-merge gate (head SHA ca2d747)
 
 | Step | Result |
 |---|---|
 | 1 Tests | ✅ 9 backend unit tests pass · mobile and shared have no tests |
 | 2 Coverage | ❌ backend 65.15 % stmts / 66.66 % branches / 50 % funcs / 62.9 % lines · mobile 0 % · shared 0 % (floor 80, pre-existing, tracked by #43–#48) · docs coverage ⚠️ not measured (no counter in this repo) |
-| 3 SonarQube | ✅ PASSED (new_violations 0) |
-| 4 Secrets | ✅ gitleaks clean (main..HEAD) · only `.env.example` tracked · diff read: nothing sensitive |
+| 3 SonarQube | ✅ PASSED (new_violations 0), local scan and CI Quality Gate on ca2d747 |
+| 4 Secrets | ✅ gitleaks clean (main..HEAD, local and CI on ca2d747) · only `.env.example` tracked · diff read: nothing sensitive |
 | 5 QA pass | ⚠️ not run: docs-only diff, product not started |
 
 - Gate: **RED on step 2** — coverage floor fails on existing code, not on this diff. Merge needs an explicit owner waiver (as for PR #52).
