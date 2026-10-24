@@ -90,6 +90,26 @@ maturity 10 (1-1); RFC/PCS 35, maturity 25, RN integration 20, docs 20 (circles)
 - Both libraries are Rust: React Native needs a native binding (Rust → JSI/Turbo Module via
   `uniffi`/Expo module). This is the main technical risk and is tackled first in Phase 1.
 
+## Transport security
+
+End-to-end encryption protects content; the client-server link must not let a
+man-in-the-middle read or tamper with anything else.
+
+- **TLS 1.3 only**, mandatory on every connection (REST and WebSocket). No plaintext
+  fallback, no downgrade to older TLS versions. Android's platform TLS stack only
+  negotiates TLS 1.3 from Android 10 (API 29), so the mobile app requires Android 10 or
+  later (`minSdkVersion` 29, to be set in the app config when the transport layer ships).
+- **Certificate pinning** in the mobile app, with a backup pin so a certificate can be
+  rotated without locking users out. Pins and the rotation procedure are documented.
+- **Fail closed**: on a certificate or pin mismatch the app refuses the connection and
+  tells the user. It never retries over an unverified channel.
+- **First contact**: trust on first use is the weak point against an active attacker.
+  The app prompts users to compare safety numbers (or scan the QR code) in person or over
+  a separate channel.
+- **Residual leaks (accepted)**: the client IP address and the timing and size of traffic.
+  Padding and sealed sender reduce what the relay learns; network-level hiding stays out
+  of scope (see the threat model).
+
 ## Architecture
 
 UML diagrams: [`docs/architecture/diagrams/e2e-messaging/`](architecture/diagrams/e2e-messaging/)
@@ -100,4 +120,5 @@ UML diagrams: [`docs/architecture/diagrams/e2e-messaging/`](architecture/diagram
 - UML diagrams updated before implementation of each phase.
 - Code review passed, unit tests ≥ 80% coverage.
 - No plaintext content or private key ever reaches the server (asserted by tests).
+- No client-server connection works without TLS 1.3 and a valid pin (asserted by tests).
 - Documentation updated; test deployment validated.
