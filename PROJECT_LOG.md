@@ -2,8 +2,30 @@
 
 Chronological audit trail of decisions and milestones, complementing `git log`.
 
+## 2026-10-24 — Transport security added to the MVP scope (#53)
+
+- **PR #54 merged** (`a2c1b18`) — `docs(mvp): add a transport-security section to the MVP scope`,
+  branch `docs/53-transport-security`. `docs/mvp-scope.md` now requires TLS 1.3 only on every
+  client-server connection (REST and WebSocket), certificate pinning with a backup pin, fail-closed
+  behaviour on a mismatch, and safety-number comparison at first contact. Accepted residual leaks:
+  client IP, traffic timing and size. One Definition of Done line added.
+- **Decision (MCDA, Android floor)**: the Codex review of PR #54 noted that Expo 51 apps stay
+  installable on Android 6–9, whose platform TLS stack cannot negotiate TLS 1.3. Chosen: require
+  Android 10 (API 29) or later (475/500), over embedding Conscrypt (395/500, native dependency and
+  extra attack surface) and over allowing TLS 1.2 (385/500, weakens the network-attacker goal).
+  `minSdkVersion` 29 is still to be set in `apps/mobile/app.config.ts` when the transport layer ships.
+- **Review cycle**: two Codex rounds, both findings fixed and answered inline (Android floor; stale
+  local-review report). Copilot never posted a review: the API did not register it as a reviewer,
+  and the owner chose to go without it.
+- **Gate exception (owner)**: merged with the pre-merge gate red on step 2 (backend coverage 65 %,
+  mobile and shared 0 %, floor 80 %, tracked in #43–#48), documentation coverage not measured and
+  the QA pass not run. Rationale: docs-only diff, no runtime impact. CI fully green, SonarQube
+  passed, gitleaks clean. Same precedent as PR #38 and PR #52.
+
 ## 2026-10-16 — SonarQube analysis set up (#42)
 
+- **PR #52 merged** (`5d517a0`) — `ci(sonar): add self-hosted SonarQube analysis`, branch
+  `ci/42-sonarqube-quality-gate`.
 - **Decision**: self-hosted SonarQube (`localhost:9000`, project key `huis-clos`), the machine-wide
   standard. No CI scan job: GitHub-hosted runners cannot reach localhost, and the Community Build has
   no PR decoration, so the quality gate is read locally (dashboard / REST), not on the PR.
